@@ -42,7 +42,7 @@ class OrderBook
     std::unordered_map<Symbol, std::vector<Data>> m_orderbook;
 
 public:
-    void insert_to_book(const Symbol& symbol, const Price price, const Id id, const Size size)
+    void insert_to_book(const Symbol &symbol, const Price price, const Id id, const Size size)
     {
         print("Inserting to Book: ");
         [[likely]] if (m_orderbook.contains(symbol))
@@ -59,7 +59,14 @@ public:
         }
     }
 
-    void print_book(const Symbol& symbol)
+    uint64_t get_orders_per_symbol(const Symbol& symbol) {
+        [[likely]] if (m_orderbook.contains(symbol)){
+            return m_orderbook.at(symbol).size();
+        }
+        return 0; 
+    }
+
+    void print_book(const Symbol &symbol)
     {
         print("Printing Book for symbol: " + symbol);
         [[likely]] if (m_orderbook.contains(symbol))
