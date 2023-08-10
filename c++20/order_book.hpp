@@ -41,6 +41,28 @@ class OrderBook {
       return data_a.m_size > data_b.m_size;
     });
   }
+  void sort_by_id(const Symbol symbol) {
+    print("Sorting by Size:" + symbol + " ");
+    std::ranges::sort(m_orderbook.at(symbol), [](Data data_a, Data data_b) {
+      return data_a.m_id < data_b.m_id;
+    });
+  }
+
+  [[nodiscard("Use Id")]] std::pair<bool, Id> search_by_id(const Symbol symbol,
+                                                           const Id id) {
+    print("Searchig id of: " + symbol + " id: " + std::to_string(id));
+    sort_by_id(symbol);
+    auto position = std::lower_bound(
+        m_orderbook.at(symbol).begin(), m_orderbook.at(symbol).end(), id,
+        [](const Data& data, Id id) { 
+          std::cout << data << "  Id: " << id << std::endl; 
+          return data.m_id < id; });
+    if (position != m_orderbook.at(symbol).end()) {
+      return std::make_pair<bool, Id>(
+          true, position - m_orderbook.at(symbol).begin());
+    }
+    return std::make_pair<bool, Id>(false, 0u);
+  }
 
   std::unordered_map<Symbol, std::vector<Data>> m_orderbook;
 
@@ -59,7 +81,8 @@ class OrderBook {
     }
   }
 
-  uint64_t get_orders_per_symbol(const Symbol& symbol) {
+  [[nodiscard("Use the size returned Please")]] uint64_t get_orders_per_symbol(
+      const Symbol& symbol) {
     [[likely]] if (m_orderbook.contains(symbol)) {
       return m_orderbook.at(symbol).size();
     }
@@ -91,5 +114,17 @@ class OrderBook {
       return m_orderbook.at(symbol).at(0);
     }
     return Data();
+  }
+
+  void removeOrder(const Symbol symbol, const Id id) {
+    [[likely]] if (m_orderbook.contains(symbol)) {
+      auto z = search_by_id(symbol, id);
+      if (z.first) {
+        m_orderbook.at(symbol).erase(m_orderbook.at(symbol).begin() + z.second);
+      } else {
+        std::cout << "Doesn't Exist." << std::endl;
+      }
+    }
+    sort_by_price(symbol);
   }
 };

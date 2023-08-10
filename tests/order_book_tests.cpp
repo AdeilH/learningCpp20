@@ -37,3 +37,16 @@ TEST_CASE("Insertion into Order Book", "[TopBid]")
     REQUIRE(z.m_price == 300);
     REQUIRE(z.m_id == 2);
 }
+
+TEST_CASE("Removal from Order Book", "[Order Remove]")
+{
+    OrderBook orderbook;
+    orderbook.insert_to_book("IBM.", 100, 0, 200);
+    orderbook.insert_to_book("IBM.", 200, 1, 200);
+    orderbook.insert_to_book("IBM.", 300, 2, 200);
+    auto z = orderbook.get_orders_per_symbol("IBM.");
+    REQUIRE(z == 3);
+    orderbook.removeOrder("IBM.", 0);
+    z = orderbook.get_orders_per_symbol("IBM.");
+    REQUIRE(z == 2);
+}
