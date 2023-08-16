@@ -1,3 +1,8 @@
+#ifndef ORDER_BOOK_HPP
+#define ORDER_BOOK_HPP
+
+
+
 #include <stdint.h>
 #include <algorithm>
 #include <ranges>
@@ -128,3 +133,5 @@ class OrderBook {
     sort_by_price(symbol);
   }
 };
+
+#endif /* ORDER_BOOK_HPP */
