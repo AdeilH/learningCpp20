@@ -1,0 +1,3 @@
+[submodule "submodules/tlgenerator"]
+	path = submodules/tlgenerator
+	url = https://github.com/TartanLlama/generator.git

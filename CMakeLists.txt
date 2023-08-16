@@ -13,7 +13,9 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(Catch2)
 
-add_executable(DSMPP main.cpp "c++20/source_location_example.hpp" "c++20/ranges_example.hpp")
+add_executable(EXAMPLES main.cpp "c++20/source_location_example.hpp" "c++20/ranges_example.hpp")
+target_include_directories(EXAMPLES PRIVATE ${CMAKE_SOURCE_DIR}/submodules/tlgenerator/include())
+
 
 add_executable(order_book_tests "tests/order_book_tests.cpp")
 target_link_libraries(order_book_tests PUBLIC Catch2::Catch2 Catch2::Catch2WithMain)
