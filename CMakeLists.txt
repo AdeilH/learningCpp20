@@ -21,6 +21,7 @@ add_executable(order_book_tests "tests/order_book_tests.cpp")
 target_link_libraries(order_book_tests PUBLIC Catch2::Catch2 Catch2::Catch2WithMain)
 target_include_directories(order_book_tests PRIVATE "c++20")
 
+add_subdirectory(LearningCPPByExample)
 
 include(CTest)
 include(Catch)
