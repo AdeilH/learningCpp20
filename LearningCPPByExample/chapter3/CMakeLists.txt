@@ -1,0 +1,1 @@
+add_executable(threepoint1 3_1.cpp)
