@@ -22,6 +22,7 @@ target_link_libraries(order_book_tests PUBLIC Catch2::Catch2 Catch2::Catch2WithM
 target_include_directories(order_book_tests PRIVATE "c++20")
 
 add_subdirectory(LearningCPPByExample)
+add_subdirectory(algorithms)
 
 include(CTest)
 include(Catch)
